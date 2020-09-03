@@ -1,0 +1,26 @@
+#include <iostream>
+#include <vector>
+#include<bits/stdc++.h> 
+
+using namespace std;
+int get_change(int Coins[], int m, int Money) {
+  vector<int> Ways(Money + 1, INT_MAX);
+	Ways[0] = 0;
+	for (int i = 1; i <= Money; i++) {
+		for (int c = 0; c < m; c++) {
+			if (i >= Coins[c]) {
+				int sub_res = Ways[i - Coins[c]];
+				if (sub_res != INT_MAX && sub_res + 1 < Ways[i])
+					Ways[i] = sub_res + 1;
+			}
+		}
+	}
+	return Ways[Money];
+} 
+  
+int main() {
+	int Money; 
+	cin >> Money; 
+	int Coins[3] = { 1,3,4 };
+	cout << get_change(Coins, 3, Money) << endl;
+}
